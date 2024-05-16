@@ -26,8 +26,6 @@ Node, Nest JS, Typescript, MongoDB
    npm install
    ```
 
-4. Configura las variables de entorno necesarias (ver sección de Configuración).
-
 ## Configuración
 
 Antes de ejecutar la aplicación, necesitas configurar algunas variables de entorno en un archivo `.env`. Aquí tienes un ejemplo de cómo debería lucir:
