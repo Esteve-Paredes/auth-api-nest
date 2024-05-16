@@ -1,73 +1,126 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Auth-Api-Nest
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Esta es una aplicación backend desarrollada con NestJS. Proporciona servicios para registrar usuarios, autenticarlos y realizar operaciones CRUD en una base de datos de usuarios.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Stack Tecnológico
 
-## Description
+Node, Nest JS, Typescript, MongoDB
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Instalación
 
-## Installation
+1. Clona este repositorio en tu máquina local:
 
-```bash
-$ npm install
+   ```bash
+   git clone https://github.com/Esteve-Paredes/auth-api-nest.git
+   ```
+
+2. Entra en el directorio del proyecto:
+
+   ```bash
+   cd auth-api-nest
+   ```
+
+3. Instala las dependencias con el siguiente comando:
+
+   ```bash
+   npm install
+   ```
+
+4. Configura las variables de entorno necesarias (ver sección de Configuración).
+
+## Configuración
+
+Antes de ejecutar la aplicación, necesitas configurar algunas variables de entorno en un archivo `.env`. Aquí tienes un ejemplo de cómo debería lucir:
+
+```plaintext
+PORT=3000
+DB_CONNECTION=your_connectionDB
 ```
 
-## Running the app
+## Ejecución de la Aplicación
+
+Para iniciar la aplicación, usa el siguiente comando:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm run start
 ```
 
-## Test
+Para ejecutar en modo de desarrollo con recarga automática, usa:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run start:dev
 ```
 
-## Support
+## Uso
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+#### Registro de Usuarios
 
-## Stay in touch
+Para registrar un nuevo usuario, haz una solicitud POST a la siguiente ruta:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+POST  => /auth/register
+```
 
-## License
+Envía un cuerpo de solicitud JSON con los siguientes campos:
 
-Nest is [MIT licensed](LICENSE).
+```bash
+{
+	"name": "nombre",
+	"lastName": "apellido",
+	"email" : "email",
+	"password" : "contraseña"
+}
+```
+
+#### Inicio de Sesión
+
+Para iniciar sesión, haz una solicitud POST a la siguiente ruta:
+
+```bash
+POST  => /auth/login
+```
+
+Envía un cuerpo de solicitud JSON con los siguientes campos:
+
+```bash
+{
+	"email" : "email",
+	"password" : "contraseña"
+}
+```
+
+El servidor responderá con un token de autenticación que deberá ser incluido en las solicitudes posteriores como un encabezado de autorización.
+
+#### Operaciones CRUD de Usuarios
+
+Las operaciones CRUD en los usuarios requieren autenticación mediante un token JWT. Asegúrate de incluir el token de autenticación en el encabezado de autorización de todas las solicitudes.
+
+#### Obtener todos los usuarios registrados:
+
+```bash
+GET  => /users
+```
+
+#### Obtener un usuario por ID:
+
+```bash
+GET  => /users/:id
+```
+
+#### Actualizar información de un usuario:
+
+```bash
+PATCH  => /users/:id
+```
+
+#### Eliminar un usuario:
+
+```bash
+DELETE  => /users/:id
+```
+
+#### Ejemplo de cómo enviar el token en el encabezado de autorización:
+
+```bash
+Authorization: Bearer <tu_token_jwt>
+```
