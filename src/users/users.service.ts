@@ -32,7 +32,7 @@ export class UsersService {
   async findOneById(id: string): Promise<ResponseQuery> {
     try {
       const userId = await this.userModel.findOne({ id });
-      if (!userId) throw new NotFoundException('id no encontrado');
+      if (!userId) throw new NotFoundException('ID Not Found');
       return this.responseService.createResponse({
         data: this.UserData(userId),
       });
@@ -52,7 +52,7 @@ export class UsersService {
         { new: true },
       );
       return this.responseService.createResponse({
-        message: 'user Actualizado con Exito',
+        message: 'Successfully updated user',
         data: this.UserData(userUpdate),
       });
     } catch (error) {
@@ -64,7 +64,7 @@ export class UsersService {
     try {
       const userDelete = await this.userModel.findOneAndDelete({ id });
       return this.responseService.createResponse({
-        message: 'user Eliminado con Exito',
+        message: 'Successfully deleted user',
         data: this.UserData(userDelete),
       });
     } catch (error) {
